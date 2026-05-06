@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAI-ZM — Empowering Zambia Through Digital Advocacy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;0,900;1,300;1,700&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green-deep:   #032200;
+      --green-dark:   #0a5200;
+      --green-main:   #157a00;
+      --green-vivid:  #22c900;
+      --green-light:  #b8f5a8;
+      --green-pale:   #eafce5;
+      --amber:        #f59e0b;
+      --amber-hot:    #ef8b00;
+      --white:        #ffffff;
+      --off-white:    #f5fcf2;
+      --text-dark:    #0a1a06;
+      --text-mid:     #2c4425;
+      --text-muted:   #557048;
+      --border:       rgba(21,122,0,0.14);
+      --shadow-sm:    0 2px 14px rgba(10,82,0,0.07);
+      --shadow-md:    0 8px 36px rgba(10,82,0,0.14);
+      --shadow-lg:    0 24px 64px rgba(10,82,0,0.2);
+      --radius-sm:    10px;
+      --radius-md:    18px;
+      --tr:           0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Cabinet Grotesk',sans-serif; color:var(--text-dark); background:var(--off-white); line-height:1.65; overflow-x:hidden; }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .reveal { opacity:0; transform:translateY(40px); transition:opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-left { opacity:0; transform:translateX(-50px); transition:opacity .8s ease, transform .8s ease; }
+    .reveal-left.visible { opacity:1; transform:translateX(0); }
+    .reveal-right { opacity:0; transform:translateX(50px); transition:opacity .8s ease, transform .8s ease; }
+    .reveal-right.visible { opacity:1; transform:translateX(0); }
+
+    /* ─── UTILS ─── */
+    .container { max-width:1180px; margin:0 auto; padding:0 28px; }
+    .section { padding:104px 0; }
+    .section-alt { background:var(--green-pale); }
+    .tag { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--green-main); background:rgba(21,122,0,0.1); border-radius:50px; padding:5px 16px; margin-bottom:18px; border:1px solid rgba(21,122,0,0.15); }
+    .section-heading { font-family:'Fraunces',serif; font-size:clamp(2.1rem,4vw,3.2rem); font-weight:900; line-height:1.1; color:var(--text-dark); margin-bottom:18px; }
+    .section-sub { font-size:1.05rem; color:var(--text-muted); max-width:560px; margin-bottom:52px; line-height:1.75; }
+    .page { display:none; } .page.active { display:block; }
+
+    /* ─── BUTTONS ─── */
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 30px; border-radius:50px; font-family:'Cabinet Grotesk',sans-serif; font-weight:700; font-size:.93rem; cursor:pointer; border:2px solid transparent; transition:all var(--tr); text-decoration:none; letter-spacing:.02em; }
+    .btn-primary { background:var(--green-main); color:#fff; }
+    .btn-primary:hover { background:var(--green-dark); transform:translateY(-2px); box-shadow:0 10px 28px rgba(10,82,0,.28); }
+    .btn-amber { background:var(--amber); color:#fff; }
+    .btn-amber:hover { background:var(--amber-hot); transform:translateY(-2px); box-shadow:0 10px 28px rgba(245,158,11,.35); }
+    .btn-outline { background:transparent; color:var(--green-main); border-color:var(--green-main); }
+    .btn-outline:hover { background:var(--green-main); color:#fff; transform:translateY(-2px); }
+    .btn-white { background:#fff; color:var(--green-main); }
+    .btn-white:hover { background:var(--green-pale); transform:translateY(-2px); }
+    .btn-ghost { background:rgba(255,255,255,.12); color:#fff; border-color:rgba(255,255,255,.35); backdrop-filter:blur(8px); }
+    .btn-ghost:hover { background:rgba(255,255,255,.22); transform:translateY(-2px); }
+
+    /* ─── HEADER ─── */
+    header { position:sticky; top:0; z-index:1000; background:rgba(234,252,229,.96); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); transition:box-shadow var(--tr); }
+    header.scrolled { box-shadow:0 4px 24px rgba(10,82,0,.12); }
+    .header-inner { display:flex; align-items:center; justify-content:space-between; height:76px; max-width:1180px; margin:0 auto; padding:0 28px; }
+    .logo-wrap { display:flex; align-items:center; gap:12px; cursor:pointer; text-decoration:none; }
+    .logo-icon { width:46px; height:46px; border-radius:14px; overflow:hidden; box-shadow:0 4px 14px rgba(10,82,0,.28); flex-shrink:0; }
+    .logo-icon img { width:100%; height:100%; object-fit:cover; }
+    .logo-icon-fallback { width:46px; height:46px; background:linear-gradient(135deg,var(--green-main),var(--green-dark)); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:22px; color:#fff; font-weight:900; font-family:'Fraunces',serif; }
+    .logo-text { font-family:'Fraunces',serif; font-size:1.6rem; font-weight:900; color:var(--green-deep); }
+    .logo-text span { color:var(--green-main); }
+    nav ul { list-style:none; display:flex; align-items:center; gap:2px; }
+    nav ul li a { display:block; padding:8px 15px; color:var(--text-mid); text-decoration:none; font-weight:600; font-size:.9rem; border-radius:var(--radius-sm); transition:all var(--tr); cursor:pointer; }
+    nav ul li a:hover, nav ul li a.active { color:var(--green-main); background:rgba(21,122,0,.08); }
+    .nav-donate { background:var(--amber) !important; color:#fff !important; border-radius:50px !important; padding:8px 22px !important; }
+    .nav-donate:hover { background:var(--amber-hot) !important; box-shadow:0 6px 20px rgba(245,158,11,.35) !important; }
+    .hamburger { display:none; background:none; border:none; font-size:26px; cursor:pointer; color:var(--green-dark); }
+    @media(max-width:840px){
+      nav { position:fixed; top:76px; left:0; right:0; background:#eafce5; border-bottom:1px solid var(--border); box-shadow:var(--shadow-md); transform:translateY(-110%); transition:transform var(--tr); z-index:999; }
+      nav.open { transform:translateY(0); }
+      nav ul { flex-direction:column; padding:16px 24px 28px; gap:4px; }
+      nav ul li { width:100%; }
+      nav ul li a { padding:12px 16px; font-size:1rem; }
+      .hamburger { display:block; }
+    }
+
+    /* ─── HERO ─── */
+    .hero { position:relative; min-height:92vh; display:flex; align-items:center; overflow:hidden; background:var(--green-deep); }
+    .hero-canvas { position:absolute; inset:0; overflow:hidden; }
+    .hero-canvas::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 70% 50%, rgba(21,122,0,.5) 0%, transparent 70%); }
+    .hero-canvas::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 50% 60% at 10% 90%, rgba(34,201,0,.15) 0%, transparent 60%); }
+    .hero-particle { position:absolute; border-radius:50%; animation:particleDrift ease-in-out infinite; }
+    @keyframes particleDrift { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-30px) scale(1.1)} }
+    .hero-grid-lines { position:absolute; inset:0; opacity:.04; background-image:linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px); background-size:60px 60px; }
+    .hero-content { position:relative; z-index:2; max-width:1180px; margin:0 auto; padding:80px 28px; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--amber); background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.3); border-radius:50px; padding:6px 18px; margin-bottom:22px; }
+    .hero-text h1 { font-family:'Fraunces',serif; font-size:clamp(2.6rem,5.5vw,4.2rem); font-weight:900; line-height:1.06; color:#fff; margin-bottom:22px; }
+    .hero-text h1 em { font-style:italic; color:var(--green-light); }
+    .hero-text p { font-size:1.12rem; color:rgba(255,255,255,.75); margin-bottom:38px; max-width:500px; line-height:1.8; }
+    .hero-cta { display:flex; gap:14px; flex-wrap:wrap; }
+    .hero-stats { display:flex; gap:36px; margin-top:52px; padding-top:38px; border-top:1px solid rgba(255,255,255,.1); flex-wrap:wrap; }
+    .stat-num { font-family:'Fraunces',serif; font-size:2.2rem; font-weight:900; color:#fff; line-height:1; }
+    .stat-num span { color:var(--amber); }
+    .stat-label { font-size:.78rem; color:rgba(255,255,255,.55); margin-top:5px; letter-spacing:.04em; text-transform:uppercase; }
+    .hero-card-wrap { position:relative; width:100%; max-width:440px; justify-self:center; }
+    .hero-card { background:rgba(255,255,255,.07); backdrop-filter:blur(24px); border:1px solid rgba(255,255,255,.14); border-radius:26px; padding:36px; animation:floatCard 7s ease-in-out infinite; }
+    @keyframes floatCard{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(.5deg)}}
+    .hero-card h3 { font-family:'Fraunces',serif; color:#fff; font-size:1.25rem; margin-bottom:22px; }
+    .card-items { display:flex; flex-direction:column; gap:14px; }
+    .card-item { display:flex; align-items:center; gap:14px; padding:14px 18px; background:rgba(255,255,255,.06); border-radius:12px; border:1px solid rgba(255,255,255,.09); transition:background var(--tr); }
+    .card-item:hover { background:rgba(255,255,255,.1); }
+    .card-item-icon { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .ci-1{background:rgba(21,122,0,.45)} .ci-2{background:rgba(245,158,11,.3)} .ci-3{background:rgba(255,255,255,.1)} .ci-4{background:rgba(184,245,168,.2)}
+    .card-item-text { font-size:.9rem; color:rgba(255,255,255,.88); font-weight:600; }
+    .floating-badge { position:absolute; top:-22px; right:-22px; background:var(--amber); color:#fff; border-radius:16px; padding:10px 18px; font-size:.8rem; font-weight:700; box-shadow:0 10px 28px rgba(245,158,11,.45); animation:floatBadge 5s ease-in-out infinite; white-space:nowrap; }
+    @keyframes floatBadge{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(4deg) translateY(-10px)}}
+    @media(max-width:840px){.hero-content{grid-template-columns:1fr;gap:48px}.hero-card-wrap{max-width:100%}}
+
+    /* ─── CAROUSEL ─── */
+    .carousel-section { background:var(--green-deep); padding:0; overflow:hidden; }
+    .carousel-inner { position:relative; }
+    .carousel-track-wrap { overflow:hidden; }
+    .carousel-track { display:flex; transition:transform .6s cubic-bezier(0.4,0,0.2,1); will-change:transform; }
+    .carousel-slide { position:relative; min-width:100%; height:520px; overflow:hidden; }
+    .carousel-slide img { width:100%; height:100%; object-fit:cover; display:block; }
+    .carousel-slide-fallback { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:80px; }
+    .carousel-overlay { position:absolute; inset:0; background:linear-gradient(to right, rgba(3,34,0,.8) 0%, rgba(3,34,0,.4) 60%, transparent 100%); }
+    .carousel-caption { position:absolute; bottom:60px; left:80px; color:#fff; max-width:500px; transform:translateY(20px); opacity:0; transition:all .6s ease .2s; }
+    .carousel-slide.active .carousel-caption { opacity:1; transform:translateY(0); }
+    .carousel-caption .cap-tag { display:inline-block; background:var(--amber); color:#fff; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:4px 14px; border-radius:50px; margin-bottom:14px; }
+    .carousel-caption h2 { font-family:'Fraunces',serif; font-size:clamp(1.6rem,3.5vw,2.6rem); font-weight:900; line-height:1.15; margin-bottom:12px; }
+    .carousel-caption p { font-size:1rem; opacity:.82; line-height:1.7; }
+    .carousel-controls { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:12px; z-index:10; }
+    .carousel-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.35); cursor:pointer; transition:all .3s; border:none; padding:0; }
+    .carousel-dot.active { background:#fff; width:28px; border-radius:50px; }
+    .carousel-arrow { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.12); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.2); color:#fff; width:52px; height:52px; border-radius:50%; font-size:20px; cursor:pointer; transition:all var(--tr); display:flex; align-items:center; justify-content:center; z-index:10; }
+    .carousel-arrow:hover { background:rgba(255,255,255,.25); transform:translateY(-50%) scale(1.08); }
+    .carousel-prev { left:24px; }
+    .carousel-next { right:24px; }
+    @media(max-width:640px){
+      .carousel-slide { height:380px; }
+      .carousel-caption { left:28px; bottom:50px; max-width:calc(100% - 56px); }
+      .carousel-caption h2 { font-size:1.4rem; }
+      .carousel-arrow { display:none; }
+    }
+
+    /* ─── ABOUT ─── */
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .about-img-wrap { position:relative; }
+    .about-img-box { border-radius:22px; aspect-ratio:4/3; overflow:hidden; box-shadow:var(--shadow-lg); }
+    .about-img-box img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+    .about-img-box:hover img { transform:scale(1.04); }
+    .about-img-deco { position:absolute; bottom:-26px; left:-26px; background:var(--green-main); color:#fff; padding:20px 26px; border-radius:18px; box-shadow:var(--shadow-md); z-index:2; }
+    .about-img-deco .num { font-family:'Fraunces',serif; font-size:2.4rem; font-weight:900; line-height:1; }
+    .about-img-deco .lbl { font-size:.75rem; opacity:.85; margin-top:3px; letter-spacing:.04em; text-transform:uppercase; }
+    .about-img-deco2 { position:absolute; top:-20px; right:-20px; background:var(--amber); color:#fff; padding:16px 20px; border-radius:14px; box-shadow:0 8px 24px rgba(245,158,11,.4); z-index:2; font-size:.82rem; font-weight:700; text-align:center; }
+    .about-points { display:flex; flex-direction:column; gap:18px; margin-bottom:38px; }
+    .about-point { display:flex; gap:16px; align-items:flex-start; padding:16px; background:var(--white); border-radius:var(--radius-sm); border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all var(--tr); }
+    .about-point:hover { box-shadow:var(--shadow-md); transform:translateX(4px); }
+    .about-point-icon { width:42px; height:42px; background:var(--green-pale); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; border:1px solid var(--border); }
+    .about-point-body h4 { font-weight:700; font-size:.95rem; color:var(--text-dark); margin-bottom:3px; }
+    .about-point-body p { font-size:.88rem; color:var(--text-muted); }
+    @media(max-width:840px){.about-grid{grid-template-columns:1fr;gap:64px}}
+
+    /* ─── INVOLVE ─── */
+    .involve-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-top:52px; }
+    .involve-card { background:var(--white); border-radius:var(--radius-md); padding:40px 30px; border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all var(--tr); text-align:center; position:relative; overflow:hidden; }
+    .involve-card::before { content:''; position:absolute; bottom:-60px; right:-60px; width:150px; height:150px; border-radius:50%; background:var(--green-pale); transition:all .5s; }
+    .involve-card:hover { transform:translateY(-8px); box-shadow:var(--shadow-lg); }
+    .involve-card:hover::before { transform:scale(2); }
+    .involve-card-icon { width:84px; height:84px; border-radius:22px; margin:0 auto 22px; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; z-index:1; }
+    .involve-card-icon img { width:56px; height:56px; object-fit:contain; }
+    .ic-1{background:linear-gradient(135deg,#c6fbba,#8ae87a)} .ic-2{background:linear-gradient(135deg,#ffecc6,#ffd088)} .ic-3{background:linear-gradient(135deg,#c6d8fb,#92b4f0)}
+    .involve-card h3 { font-family:'Fraunces',serif; font-size:1.4rem; font-weight:700; color:var(--text-dark); margin-bottom:12px; position:relative; z-index:1; }
+    .involve-card p { font-size:.9rem; color:var(--text-muted); margin-bottom:28px; position:relative; z-index:1; line-height:1.7; }
+    @media(max-width:840px){.involve-cards{grid-template-columns:1fr}}
+
+    /* ─── EVENTS ─── */
+    .events-grid, .events-full-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:52px; }
+    .event-card { background:var(--white); border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all var(--tr); }
+    .event-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+    .event-card-top { background:linear-gradient(135deg,var(--green-dark),var(--green-deep)); padding:30px; color:#fff; position:relative; overflow:hidden; }
+    .event-card-top::before { content:''; position:absolute; width:130px; height:130px; border-radius:50%; background:rgba(255,255,255,.05); bottom:-50px; right:-30px; }
+    .event-card-top::after { content:''; position:absolute; width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,.04); top:-20px; left:-20px; }
+    .event-day { font-family:'Fraunces',serif; font-size:3.2rem; font-weight:900; line-height:1; display:block; }
+    .event-month { font-size:1rem; font-weight:600; opacity:.75; }
+    .event-type-badge { display:inline-block; background:rgba(255,255,255,.16); font-size:11px; letter-spacing:.1em; text-transform:uppercase; padding:4px 12px; border-radius:50px; margin-top:10px; font-weight:600; }
+    .event-card-body { padding:26px; }
+    .event-card-body h3 { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:700; color:var(--text-dark); margin-bottom:8px; }
+    .event-card-body > p { font-size:.88rem; color:var(--text-muted); margin-bottom:8px; }
+    .event-meta { font-size:.8rem; color:var(--text-muted); margin-bottom:16px; }
+    .event-more { display:none; font-size:.88rem; color:var(--text-muted); margin:10px 0; line-height:1.65; }
+    .event-more.open { display:block; }
+    .toggle-btn { background:none; border:none; color:var(--green-main); font-weight:700; font-size:.85rem; cursor:pointer; padding:0; font-family:'Cabinet Grotesk',sans-serif; }
+    @media(max-width:840px){.events-grid,.events-full-grid{grid-template-columns:1fr}}
+
+    /* ─── BLOGS ─── */
+    .blogs-grid, .blogs-full-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:52px; }
+    .blog-card { background:var(--white); border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all var(--tr); display:flex; flex-direction:column; }
+    .blog-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+    .blog-card-img { height:190px; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
+    .blog-card-img img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+    .blog-card:hover .blog-card-img img { transform:scale(1.06); }
+    .bc-1{background:linear-gradient(135deg,#c6fbba,#80e068)} .bc-2{background:linear-gradient(135deg,#ffecc6,#ffd08a)} .bc-3{background:linear-gradient(135deg,#d0e8ff,#9cc0f8)} .bc-4{background:linear-gradient(135deg,#ffc6e0,#ff8ab8)} .bc-5{background:linear-gradient(135deg,#e0d0ff,#b89af8)} .bc-6{background:linear-gradient(135deg,#c6fbba,#90e860)}
+    .blog-card-body { padding:26px; flex:1; display:flex; flex-direction:column; }
+    .blog-tag { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--green-main); margin-bottom:10px; }
+    .blog-card-body h3 { font-family:'Fraunces',serif; font-size:1.08rem; font-weight:700; color:var(--text-dark); margin-bottom:10px; line-height:1.4; }
+    .blog-card-body > p { font-size:.88rem; color:var(--text-muted); flex:1; line-height:1.65; }
+    .blog-extra { display:none; font-size:.88rem; color:var(--text-muted); margin-top:10px; line-height:1.65; }
+    .blog-extra.open { display:block; }
+    @media(max-width:840px){.blogs-grid,.blogs-full-grid{grid-template-columns:1fr}}
+
+    /* ─── TEAM ─── */
+    .team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:52px; }
+    .team-card { background:var(--white); border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all var(--tr); text-align:center; }
+    .team-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+    .team-img { height:260px; overflow:hidden; background:var(--green-pale); display:flex; align-items:center; justify-content:center; position:relative; }
+    .team-img img { width:100%; height:100%; object-fit:cover; object-position:center top; transition:transform .5s; }
+    .team-card:hover .team-img img { transform:scale(1.04); }
+    .team-avatar-fallback { width:96px; height:96px; border-radius:50%; background:var(--green-main); display:flex; align-items:center; justify-content:center; font-size:2.4rem; color:#fff; font-family:'Fraunces',serif; font-weight:700; }
+    .team-body { padding:26px 22px; }
+    .team-body h3 { font-family:'Fraunces',serif; font-size:1.18rem; font-weight:700; color:var(--text-dark); margin-bottom:4px; }
+    .team-role { font-size:.85rem; color:var(--green-main); font-weight:700; margin-bottom:8px; }
+    .team-email { font-size:.82rem; color:var(--text-muted); margin-bottom:18px; }
+    @media(max-width:840px){.team-grid{grid-template-columns:1fr}}
+
+    /* ─── CTA STRIP ─── */
+    .mission-strip { position:relative; overflow:hidden; background:linear-gradient(135deg,var(--green-deep) 0%,var(--green-dark) 50%,#1a9400 100%); color:#fff; padding:88px 28px; text-align:center; }
+    .mission-strip::before { content:''; position:absolute; width:600px; height:600px; border-radius:50%; background:rgba(34,201,0,.08); top:-200px; right:-200px; }
+    .mission-strip::after { content:''; position:absolute; width:400px; height:400px; border-radius:50%; background:rgba(245,158,11,.06); bottom:-150px; left:-100px; }
+    .mission-strip h2 { font-family:'Fraunces',serif; font-size:clamp(1.9rem,3.8vw,2.8rem); font-weight:900; margin-bottom:16px; position:relative; z-index:1; }
+    .mission-strip p { font-size:1.1rem; opacity:.82; max-width:600px; margin:0 auto 36px; position:relative; z-index:1; line-height:1.75; }
+    .mission-strip-btns { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; position:relative; z-index:1; }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero { background:linear-gradient(135deg,var(--green-deep),var(--green-dark)); color:#fff; text-align:center; padding:88px 28px; position:relative; overflow:hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 80% at 50% 110%, rgba(21,122,0,.5) 0%, transparent 60%); }
+    .page-hero .tag { background:rgba(255,255,255,.14); color:#fff; border-color:rgba(255,255,255,.28); position:relative; z-index:1; }
+    .page-hero h1 { font-family:'Fraunces',serif; font-size:clamp(2.1rem,4.5vw,3.2rem); font-weight:900; margin-bottom:16px; position:relative; z-index:1; }
+    .page-hero p { font-size:1.05rem; opacity:.82; max-width:560px; margin:0 auto; position:relative; z-index:1; line-height:1.75; }
+
+    /* ─── MISSION/VISION ─── */
+    .mv-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:52px; }
+    .mv-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius-md); padding:40px; box-shadow:var(--shadow-sm); transition:all var(--tr); }
+    .mv-card:hover { box-shadow:var(--shadow-md); transform:translateY(-3px); }
+    .mv-card h3 { font-family:'Fraunces',serif; font-size:1.6rem; color:var(--green-main); margin-bottom:14px; }
+    .mv-card p { font-size:.96rem; color:var(--text-muted); line-height:1.78; }
+    @media(max-width:640px){.mv-grid{grid-template-columns:1fr}}
+
+    /* ─── VALUES ─── */
+    .values-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:52px; }
+    .value-item { text-align:center; padding:30px 18px; background:var(--white); border:1px solid var(--border); border-radius:var(--radius-md); box-shadow:var(--shadow-sm); transition:all var(--tr); }
+    .value-item:hover { transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:rgba(21,122,0,.28); }
+    .value-icon { font-size:38px; margin-bottom:16px; }
+    .value-item h4 { font-family:'Fraunces',serif; font-size:1.05rem; font-weight:700; color:var(--text-dark); margin-bottom:8px; }
+    .value-item p { font-size:.83rem; color:var(--text-muted); line-height:1.6; }
+    @media(max-width:840px){.values-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.values-grid{grid-template-columns:1fr}}
+
+    /* ─── JOIN ─── */
+    .why-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:40px; }
+    .why-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius-md); padding:28px; display:flex; gap:16px; align-items:flex-start; box-shadow:var(--shadow-sm); transition:all var(--tr); }
+    .why-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+    .why-icon { font-size:28px; flex-shrink:0; }
+    .why-body h4 { font-weight:700; font-size:1rem; color:var(--text-dark); margin-bottom:4px; }
+    .why-body p { font-size:.88rem; color:var(--text-muted); line-height:1.65; }
+    @media(max-width:640px){.why-grid{grid-template-columns:1fr}}
+    .roles-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:40px; }
+    .role-card { background:var(--white); border-radius:var(--radius-md); padding:34px 26px; text-align:center; border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all var(--tr); }
+    .role-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-md); }
+    .role-num { font-family:'Fraunces',serif; font-size:3.2rem; font-weight:900; color:var(--green-light); line-height:1; margin-bottom:8px; }
+    .role-card h3 { font-family:'Fraunces',serif; font-size:1.1rem; color:var(--text-dark); margin-bottom:10px; }
+    .role-card p { font-size:.88rem; color:var(--text-muted); line-height:1.65; }
+    @media(max-width:840px){.roles-grid{grid-template-columns:1fr}}
+    .signup-inner { max-width:660px; margin:0 auto; background:var(--white); border:1px solid var(--border); border-radius:var(--radius-md); padding:52px 44px; box-shadow:var(--shadow-md); }
+    .signup-inner h2 { font-family:'Fraunces',serif; font-size:1.9rem; margin-bottom:6px; }
+    .signup-inner > p { color:var(--text-muted); margin-bottom:32px; }
+    @media(max-width:640px){.signup-inner{padding:32px 22px}}
+
+    /* ─── FORMS ─── */
+    .form-group { margin-bottom:22px; }
+    .form-group label { display:block; font-weight:700; font-size:.88rem; color:var(--text-dark); margin-bottom:7px; }
+    .form-group input, .form-group select, .form-group textarea { width:100%; padding:13px 17px; border:1.5px solid var(--border); border-radius:var(--radius-sm); font-family:'Cabinet Grotesk',sans-serif; font-size:.96rem; color:var(--text-dark); background:var(--off-white); transition:border-color var(--tr),box-shadow var(--tr); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline:none; border-color:var(--green-main); box-shadow:0 0 0 4px rgba(21,122,0,.1); background:#fff; }
+    .form-group textarea { resize:vertical; min-height:120px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    @media(max-width:540px){.form-row{grid-template-columns:1fr}}
+    .success-msg { background:#d4edda; color:#155724; border:1px solid #c3e6cb; border-radius:var(--radius-sm); padding:14px 18px; margin-bottom:20px; font-weight:600; display:none; }
+    .success-msg.show { display:block; }
+
+    /* ─── CONTACT ─── */
+    .contact-inner { display:grid; grid-template-columns:1fr 1.5fr; gap:72px; max-width:1020px; margin:0 auto; }
+    .contact-info h2 { font-family:'Fraunces',serif; font-size:2.1rem; margin-bottom:14px; }
+    .contact-info > p { color:var(--text-muted); margin-bottom:38px; line-height:1.75; }
+    .contact-details { display:flex; flex-direction:column; gap:22px; }
+    .cd-item { display:flex; gap:14px; align-items:flex-start; }
+    .cd-icon { width:46px; height:46px; background:var(--green-pale); border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; border:1px solid var(--border); }
+    .cd-body h4 { font-weight:700; font-size:.9rem; color:var(--text-dark); margin-bottom:2px; }
+    .cd-body p { font-size:.85rem; color:var(--text-muted); }
+    .contact-form-box { background:var(--white); border:1px solid var(--border); border-radius:var(--radius-md); padding:44px; box-shadow:var(--shadow-md); }
+    .contact-form-box h3 { font-family:'Fraunces',serif; font-size:1.6rem; margin-bottom:26px; }
+    @media(max-width:840px){.contact-inner{grid-template-columns:1fr;gap:48px}}
+    @media(max-width:540px){.contact-form-box{padding:26px 20px}}
+
+    /* ─── DONATE ─── */
+    .donate-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; max-width:920px; margin:0 auto; }
+    .donate-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius-md); padding:38px; box-shadow:var(--shadow-sm); }
+    .donate-card h2 { font-family:'Fraunces',serif; font-size:1.45rem; color:var(--green-main); margin-bottom:18px; }
+    .donate-card p { font-size:.9rem; color:var(--text-muted); margin-bottom:18px; line-height:1.7; }
+    .mm-list { list-style:none; margin-bottom:18px; }
+    .mm-list li { display:flex; align-items:center; gap:10px; padding:13px 16px; background:var(--green-pale); border-radius:var(--radius-sm); margin-bottom:8px; font-weight:700; font-size:.9rem; color:var(--text-dark); border:1px solid var(--border); }
+    .mm-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+    .mm-yellow{background:#ffd700} .mm-red{background:#ff4444}
+    .amt-wrap { position:relative; margin-bottom:16px; }
+    .amt-prefix { position:absolute; left:16px; top:50%; transform:translateY(-50%); font-weight:700; color:var(--text-muted); pointer-events:none; }
+    .amt-wrap input { padding:13px 17px 13px 68px; width:100%; border:1.5px solid var(--border); border-radius:var(--radius-sm); font-size:1rem; font-family:'Cabinet Grotesk',sans-serif; background:var(--off-white); transition:border-color var(--tr),box-shadow var(--tr); }
+    .amt-wrap input:focus { outline:none; border-color:var(--green-main); box-shadow:0 0 0 4px rgba(21,122,0,.1); background:#fff; }
+    .quick-amounts { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
+    .qa-btn { padding:7px 17px; border:1.5px solid var(--border); border-radius:50px; background:var(--off-white); font-family:'Cabinet Grotesk',sans-serif; font-size:.86rem; font-weight:700; cursor:pointer; transition:all var(--tr); color:var(--text-mid); }
+    .qa-btn:hover, .qa-btn.active { background:var(--green-main); color:#fff; border-color:var(--green-main); }
+    @media(max-width:840px){.donate-grid{grid-template-columns:1fr}}
+
+    /* ─── FOOTER ─── */
+    footer { background:var(--green-deep); color:rgba(255,255,255,.82); }
+    .footer-main { display:grid; grid-template-columns:2.2fr 1fr 1fr 1fr; gap:52px; padding:72px 0 52px; }
+    .footer-brand .logo-text { color:#fff; }
+    .footer-brand p { font-size:.88rem; opacity:.6; margin-top:18px; margin-bottom:26px; max-width:290px; line-height:1.7; }
+    .social-links { display:flex; gap:10px; }
+    .social-link { width:40px; height:40px; background:rgba(255,255,255,.08); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:16px; text-decoration:none; transition:all var(--tr); }
+    .social-link:hover { background:var(--green-main); transform:translateY(-3px); }
+    .footer-col h4 { font-weight:800; font-size:.85rem; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.4); margin-bottom:18px; }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .footer-col ul li a { color:rgba(255,255,255,.65); text-decoration:none; font-size:.9rem; transition:color var(--tr); cursor:pointer; }
+    .footer-col ul li a:hover { color:var(--green-light); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.08); padding:22px 0; display:flex; align-items:center; justify-content:space-between; font-size:.83rem; color:rgba(255,255,255,.35); }
+    @media(max-width:840px){.footer-main{grid-template-columns:1fr 1fr;gap:36px}}
+    @media(max-width:540px){.footer-main{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:8px;text-align:center}}
+
+    /* ─── BACK TO TOP ─── */
+    #back-top { position:fixed; bottom:28px; right:28px; width:50px; height:50px; background:var(--green-main); color:#fff; border:none; border-radius:50%; font-size:20px; cursor:pointer; box-shadow:var(--shadow-md); display:none; align-items:center; justify-content:center; z-index:999; transition:all var(--tr); }
+    #back-top:hover { background:var(--green-dark); transform:translateY(-4px) scale(1.08); }
+    #back-top.show { display:flex; }
+
+    /* ─── IMPACT COUNTER BAR ─── */
+    .impact-bar { background:var(--green-main); color:#fff; padding:20px 0; overflow:hidden; }
+    .impact-bar-inner { display:flex; justify-content:space-around; align-items:center; flex-wrap:wrap; gap:16px; max-width:1180px; margin:0 auto; padding:0 28px; }
+    .impact-item { display:flex; align-items:center; gap:10px; }
+    .impact-item .icon { font-size:22px; opacity:.85; }
+    .impact-item strong { font-family:'Fraunces',serif; font-size:1.8rem; font-weight:900; line-height:1; }
+    .impact-item span { font-size:.82rem; opacity:.8; text-transform:uppercase; letter-spacing:.06em; margin-top:2px; display:block; }
+
+    /* ─── TICKER / MARQUEE ─── */
+    .ticker { background:var(--amber); color:#fff; padding:10px 0; overflow:hidden; white-space:nowrap; }
+    .ticker-inner { display:inline-block; animation:tickerScroll 28s linear infinite; padding-left:100%; font-size:.88rem; font-weight:700; letter-spacing:.04em; }
+    @keyframes tickerScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-100%)} }
+    .ticker-sep { margin:0 28px; opacity:.6; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header id="site-header">
+  <div class="header-inner">
+    <div class="logo-wrap" onclick="go('home')">
+      <div class="logo-icon">
+        <img src="1.png" alt="NAI-ZM" onerror="this.parentNode.outerHTML='<div class=\'logo-icon-fallback\'>N</div>'">
+      </div>
+      <span class="logo-text">NAI<span>-ZM</span></span>
+    </div>
+    <nav id="main-nav">
+      <ul>
+        <li><a onclick="go('home')" id="nav-home" class="active">Home</a></li>
+        <li><a onclick="go('about')" id="nav-about">About</a></li>
+        <li><a onclick="go('events')" id="nav-events">Events</a></li>
+        <li><a onclick="go('blogs')" id="nav-blogs">Blogs</a></li>
+        <li><a onclick="go('join')" id="nav-join">Join Us</a></li>
+        <li><a onclick="go('contact')" id="nav-contact">Contact</a></li>
+        <li><a onclick="go('donate')" id="nav-donate" class="nav-donate">💚 Donate</a></li>
+      </ul>
+    </nav>
+    <button class="hamburger" onclick="toggleNav()" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- Ticker -->
+<div class="ticker">
+  <span class="ticker-inner">
+    🇿🇲 Welcome to NAI-ZM — Network for Africa's Innovation in Zambia
+    <span class="ticker-sep">✦</span>
+    Empowering Zambians Through Digital Technology
+    <span class="ticker-sep">✦</span>
+    500+ Community Members and Growing
+    <span class="ticker-sep">✦</span>
+    Join Our Next Digital Skills Workshop
+    <span class="ticker-sep">✦</span>
+    Connecting Youth to Technology Opportunities Across Zambia
+    <span class="ticker-sep">✦</span>
+    Together We Build the Digital Future
+    <span class="ticker-sep">✦</span>
+  </span>
+</div>
+
+<!-- ═══════════ HOME ═══════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-canvas"></div>
+    <div class="hero-grid-lines"></div>
+    <!-- Particles -->
+    <div class="hero-particle" style="width:90px;height:90px;background:rgba(34,201,0,.12);top:12%;left:6%;animation-duration:9s"></div>
+    <div class="hero-particle" style="width:55px;height:55px;background:rgba(245,158,11,.1);top:65%;left:4%;animation-duration:7s;animation-delay:2s"></div>
+    <div class="hero-particle" style="width:130px;height:130px;background:rgba(34,201,0,.07);top:20%;right:10%;animation-duration:11s;animation-delay:1s"></div>
+    <div class="hero-particle" style="width:44px;height:44px;background:rgba(255,255,255,.06);bottom:18%;right:22%;animation-duration:6s;animation-delay:3s"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <span class="eyebrow">🇿🇲 Digital Advocacy for Zambia</span>
+        <h1>Empowering Zambia Through <em>Digital Innovation</em></h1>
+        <p>We connect, educate, and inspire Zambians to harness the power of technology — building a brighter, more equitable future for every community.</p>
+        <div class="hero-cta">
+          <a class="btn btn-amber" onclick="go('join')">✦ Join Our Community</a>
+          <a class="btn btn-ghost" onclick="go('about')">Our Mission →</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="stat-num">500<span>+</span></div><div class="stat-label">Community Members</div></div>
+          <div><div class="stat-num">20<span>+</span></div><div class="stat-label">Events Hosted</div></div>
+          <div><div class="stat-num">10<span>+</span></div><div class="stat-label">Partner Orgs</div></div>
+        </div>
+      </div>
+      <div class="hero-card-wrap">
+        <div class="floating-badge">🚀 Join Today — Free!</div>
+        <div class="hero-card">
+          <h3>What We Do</h3>
+          <div class="card-items">
+            <div class="card-item"><div class="card-item-icon ci-1">📚</div><div class="card-item-text">Digital Skills Workshops &amp; Training</div></div>
+            <div class="card-item"><div class="card-item-icon ci-2">🤝</div><div class="card-item-text">Community Outreach &amp; Mentorship</div></div>
+            <div class="card-item"><div class="card-item-icon ci-3">🏆</div><div class="card-item-text">Hackathons &amp; Innovation Challenges</div></div>
+            <div class="card-item"><div class="card-item-icon ci-4">🌐</div><div class="card-item-text">Digital Policy &amp; Advocacy</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAROUSEL -->
+  <section class="carousel-section">
+    <div class="carousel-inner">
+      <div class="carousel-track-wrap">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-slide active">
+            <img src="6.png" alt="Digital Community" onerror="this.outerHTML='<div class=\'carousel-slide-fallback bc-1\'>🌿</div>'">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="cap-tag">Our Community</span>
+              <h2>Bridging the Digital Divide Across Zambia</h2>
+              <p>Connecting thousands of Zambians with tools, skills, and opportunities to thrive in the digital age.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="7.png" alt="Innovation" onerror="this.outerHTML='<div class=\'carousel-slide-fallback bc-2\'>💡</div>'">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="cap-tag">Innovation</span>
+              <h2>Youth-Led Technology Solutions for Africa</h2>
+              <p>Young Zambians are building the apps, platforms, and systems that solve local problems.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="8.png" alt="Education" onerror="this.outerHTML='<div class=\'carousel-slide-fallback bc-3\'>📖</div>'">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="cap-tag">Education</span>
+              <h2>Digital Skills That Open Doors to the World</h2>
+              <p>From coding bootcamps to entrepreneurship workshops — we equip Zambians for the jobs of tomorrow.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="9.png" alt="Advocacy" onerror="this.outerHTML='<div class=\'carousel-slide-fallback bc-4\'>📣</div>'">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="cap-tag">Advocacy</span>
+              <h2>Championing Digital Rights &amp; Internet Access</h2>
+              <p>We advocate for policies that make technology accessible, affordable, and equitable for all Zambians.</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="3.png" alt="Women in Tech" onerror="this.outerHTML='<div class=\'carousel-slide-fallback bc-5\'>👩‍💻</div>'">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-caption">
+              <span class="cap-tag">Inclusion</span>
+              <h2>Women Leading the Way in Zambian Tech</h2>
+              <p>We are proud to support and celebrate women who are reshaping the technology landscape in Africa.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-arrow carousel-prev" onclick="carouselMove(-1)" aria-label="Previous">&#8592;</button>
+      <button class="carousel-arrow carousel-next" onclick="carouselMove(1)" aria-label="Next">&#8594;</button>
+      <div class="carousel-controls" id="carouselDots"></div>
+    </div>
+  </section>
+
+  <!-- IMPACT BAR -->
+  <div class="impact-bar">
+    <div class="impact-bar-inner">
+      <div class="impact-item"><span class="icon">👥</span><div><strong>500+</strong><span>Members</span></div></div>
+      <div class="impact-item"><span class="icon">📅</span><div><strong>20+</strong><span>Events</span></div></div>
+      <div class="impact-item"><span class="icon">🤝</span><div><strong>10+</strong><span>Partners</span></div></div>
+      <div class="impact-item"><span class="icon">🌍</span><div><strong>5+</strong><span>Provinces</span></div></div>
+      <div class="impact-item"><span class="icon">📚</span><div><strong>50+</strong><span>Workshops</span></div></div>
+    </div>
+  </div>
+
+  <!-- ABOUT TEASER -->
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img-wrap reveal-left">
+          <div class="about-img-box">
+            <img src="6.png" alt="NAI-ZM Community" onerror="this.outerHTML='<span style=\'font-size:80px;display:flex;align-items:center;justify-content:center;width:100%;height:100%\'>🌿</span>'">
+          </div>
+          <div class="about-img-deco"><div class="num">3+</div><div class="lbl">Years of Impact</div></div>
+          <div class="about-img-deco2">🇿🇲 Zambia-Wide<br>Network</div>
+        </div>
+        <div class="reveal-right">
+          <span class="tag">✦ Who We Are</span>
+          <h2 class="section-heading">Bridging the Digital Divide in Zambia</h2>
+          <p class="section-sub">NAI-ZM is a youth-led movement dedicated to leveraging technology for community development and digital empowerment across all provinces of Zambia.</p>
+          <div class="about-points">
+            <div class="about-point"><div class="about-point-icon">🎯</div><div class="about-point-body"><h4>Purpose-Driven</h4><p>Every programme we run is designed to create lasting, measurable impact in Zambian communities.</p></div></div>
+            <div class="about-point"><div class="about-point-icon">🌍</div><div class="about-point-body"><h4>Pan-Zambian Reach</h4><p>Operating across multiple provinces, bringing digital skills to both urban and rural areas.</p></div></div>
+            <div class="about-point"><div class="about-point-icon">🤲</div><div class="about-point-body"><h4>Community-First</h4><p>Our decisions and programmes are guided by the people and communities we serve.</p></div></div>
+          </div>
+          <a class="btn btn-primary" onclick="go('about')">Learn More About Us →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GET INVOLVED -->
+  <section class="section section-alt">
+    <div class="container">
+      <div style="text-align:center" class="reveal">
+        <span class="tag">✦ Get Involved</span>
+        <h2 class="section-heading">Three Ways to Make a Difference</h2>
+        <p class="section-sub" style="margin:0 auto 0">Whether you want to learn, engage, or give — there's a place for you in the NAI-ZM family.</p>
+      </div>
+      <div class="involve-cards">
+        <div class="involve-card reveal">
+          <div class="involve-card-icon ic-1"><img src="learning.png" alt="Learn" onerror="this.parentNode.innerHTML='📖'"></div>
+          <h3>Learn</h3>
+          <p>Access curated resources to build real-world digital skills in coding, data, design, and entrepreneurship.</p>
+          <a class="btn btn-outline" onclick="go('blogs')">Find Resources</a>
+        </div>
+        <div class="involve-card reveal" style="transition-delay:.15s">
+          <div class="involve-card-icon ic-2"><img src="marketing.png" alt="Engage" onerror="this.parentNode.innerHTML='📣'"></div>
+          <h3>Engage</h3>
+          <p>Participate in events, workshops, and competitions. Connect with innovators across every corner of Zambia.</p>
+          <a class="btn btn-outline" onclick="go('events')">Join Events</a>
+        </div>
+        <div class="involve-card reveal" style="transition-delay:.3s">
+          <div class="involve-card-icon ic-3"><img src="charity.png" alt="Act" onerror="this.parentNode.innerHTML='💚'"></div>
+          <h3>Act</h3>
+          <p>Volunteer, mentor, or donate to power our programmes and drive systemic, lasting change in communities.</p>
+          <a class="btn btn-outline" onclick="go('donate')">Support Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS PREVIEW -->
+  <section class="section">
+    <div class="container">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px" class="reveal">
+        <div><span class="tag">✦ Events</span><h2 class="section-heading" style="margin-bottom:0">Upcoming Events</h2></div>
+        <a class="btn btn-outline" onclick="go('events')">View All →</a>
+      </div>
+      <div class="events-grid" id="home-events"></div>
+    </div>
+  </section>
+
+  <!-- BLOGS PREVIEW -->
+  <section class="section section-alt">
+    <div class="container">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px" class="reveal">
+        <div><span class="tag">✦ Insights</span><h2 class="section-heading" style="margin-bottom:0">Latest Articles</h2></div>
+        <a class="btn btn-outline" onclick="go('blogs')">View All →</a>
+      </div>
+      <div class="blogs-grid" id="home-blogs"></div>
+    </div>
+  </section>
+
+  <!-- MISSION STRIP -->
+  <div class="mission-strip">
+    <h2>Ready to Be Part of the Change?</h2>
+    <p>Join thousands of Zambians already shaping the future through digital advocacy, education, and innovation.</p>
+    <div class="mission-strip-btns">
+      <a class="btn btn-amber" onclick="go('join')">✦ Join NAI-ZM Today</a>
+      <a class="btn btn-ghost" onclick="go('contact')">Get In Touch →</a>
+    </div>
+  </div>
+
+</div><!-- /home -->
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<div id="page-about" class="page">
+  <div class="page-hero">
+    <span class="tag">✦ About NAI-ZM</span>
+    <h1>Who We Are</h1>
+    <p>A youth-led movement bridging Zambia's digital divide — one community at a time.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img-wrap reveal-left">
+          <div class="about-img-box">
+            <img src="images.jpeg" alt="Our Story" onerror="this.outerHTML='<span style=\'font-size:80px;display:flex;align-items:center;justify-content:center;width:100%;height:100%\'>🌍</span>'">
+          </div>
+          <div class="about-img-deco"><div class="num">2021</div><div class="lbl">Founded</div></div>
+        </div>
+        <div class="reveal-right">
+          <span class="tag">✦ Our Story</span>
+          <h2 class="section-heading">Born From a Vision for Digital Zambia</h2>
+          <p class="section-sub">NAI-ZM was founded by a group of passionate young Zambians who believed that technology could be the great equalizer — if only more people had access to it.</p>
+          <p style="color:var(--text-muted);font-size:.96rem;line-height:1.8;margin-bottom:24px">Today, we operate across Zambia, running workshops, advocating for digital rights, hosting innovation challenges, and building a community of technology enthusiasts committed to national progress.</p>
+          <a class="btn btn-primary" onclick="go('join')">Join Our Story →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div style="text-align:center" class="reveal">
+        <span class="tag">✦ Core Principles</span>
+        <h2 class="section-heading">Mission &amp; Vision</h2>
+      </div>
+      <div class="mv-grid">
+        <div class="mv-card reveal">
+          <h3>🎯 Our Mission</h3>
+          <p>To advance digital literacy, advocate for equitable internet access, and foster technology-driven innovation across Zambia — empowering communities to solve their own challenges through the power of digital tools.</p>
+        </div>
+        <div class="mv-card reveal" style="transition-delay:.15s">
+          <h3>🌟 Our Vision</h3>
+          <p>A digitally empowered Zambia where every citizen, regardless of background or location, can leverage technology to improve their livelihoods, participate in the digital economy, and contribute to national development.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center" class="reveal">
+        <span class="tag">✦ What Guides Us</span>
+        <h2 class="section-heading">Our Core Values</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-item reveal"><div class="value-icon">🌍</div><h4>Inclusivity</h4><p>Technology must serve everyone — regardless of gender, location, or background.</p></div>
+        <div class="value-item reveal" style="transition-delay:.1s"><div class="value-icon">💡</div><h4>Innovation</h4><p>We embrace new ideas and encourage creative problem-solving for Zambian challenges.</p></div>
+        <div class="value-item reveal" style="transition-delay:.2s"><div class="value-icon">🤲</div><h4>Community</h4><p>Our strength comes from the communities we serve and the members who believe in our mission.</p></div>
+        <div class="value-item reveal" style="transition-delay:.3s"><div class="value-icon">🔬</div><h4>Integrity</h4><p>We operate with transparency, accountability, and a commitment to doing what's right.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div style="text-align:center" class="reveal">
+        <span class="tag">✦ Leadership</span>
+        <h2 class="section-heading">Meet the Team</h2>
+        <p class="section-sub" style="margin:0 auto 52px">The passionate individuals driving NAI-ZM's mission forward every day.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="team-img"><img src="temwani.jpeg" alt="Temwani" onerror="this.outerHTML='<div class=\'team-avatar-fallback\'>T</div>'"></div>
+          <div class="team-body">
+            <h3>Temwani</h3>
+            <div class="team-role">Founder &amp; Executive Director</div>
+            <div class="team-email">📧 leadership@naizm.org</div>
+            <a class="btn btn-outline" style="font-size:.82rem;padding:8px 18px" onclick="go('contact')">Connect</a>
+          </div>
+        </div>
+        <div class="team-card reveal" style="transition-delay:.15s">
+          <div class="team-img"><img src="muzunga.jpeg" alt="Muzunga" onerror="this.outerHTML='<div class=\'team-avatar-fallback\'>M</div>'"></div>
+          <div class="team-body">
+            <h3>Muzunga</h3>
+            <div class="team-role">Head of Programmes</div>
+            <div class="team-email">📧 programmes@naizm.org</div>
+            <a class="btn btn-outline" style="font-size:.82rem;padding:8px 18px" onclick="go('contact')">Connect</a>
+          </div>
+        </div>
+        <div class="team-card reveal" style="transition-delay:.3s">
+          <div class="team-img" style="background:linear-gradient(135deg,#c6fbba,#8ae87a);"><div class="team-avatar-fallback">C</div></div>
+          <div class="team-body">
+            <h3>Community Team</h3>
+            <div class="team-role">Volunteers &amp; Contributors</div>
+            <div class="team-email">📧 volunteer@naizm.org</div>
+            <a class="btn btn-outline" style="font-size:.82rem;padding:8px 18px" onclick="go('join')">Join Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /about -->
+
+<!-- ═══════════ EVENTS ═══════════ -->
+<div id="page-events" class="page">
+  <div class="page-hero">
+    <span class="tag">✦ Events</span>
+    <h1>Upcoming &amp; Past Events</h1>
+    <p>Connect, learn, and grow through our workshops, hackathons, and community gatherings.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="reveal">
+        <span class="tag">✦ 2025 Calendar</span>
+        <h2 class="section-heading">All Events</h2>
+      </div>
+      <div class="events-full-grid" id="events-full"></div>
+    </div>
+  </section>
+</div><!-- /events -->
+
+<!-- ═══════════ BLOGS ═══════════ -->
+<div id="page-blogs" class="page">
+  <div class="page-hero">
+    <span class="tag">✦ Knowledge Hub</span>
+    <h1>Articles &amp; Insights</h1>
+    <p>Explore perspectives on technology, innovation, and digital transformation in Zambia and across Africa.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="reveal">
+        <span class="tag">✦ All Articles</span>
+        <h2 class="section-heading">Latest from NAI-ZM</h2>
+      </div>
+      <div class="blogs-full-grid" id="blogs-full"></div>
+    </div>
+  </section>
+</div><!-- /blogs -->
+
+<!-- ═══════════ JOIN ═══════════ -->
+<div id="page-join" class="page">
+  <div class="page-hero">
+    <span class="tag">✦ Join Us</span>
+    <h1>Become Part of the Movement</h1>
+    <p>NAI-ZM membership is 100% free. Join a growing family of digital advocates and changemakers.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center" class="reveal">
+        <span class="tag">✦ Why Join?</span>
+        <h2 class="section-heading">What You Gain as a Member</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal"><div class="why-icon">🎓</div><div class="why-body"><h4>Free Training &amp; Workshops</h4><p>Access digital skills training, webinars, and certifications at no cost.</p></div></div>
+        <div class="why-card reveal" style="transition-delay:.1s"><div class="why-icon">🤝</div><div class="why-body"><h4>Networking</h4><p>Connect with tech professionals, entrepreneurs, and innovators across Zambia.</p></div></div>
+        <div class="why-card reveal" style="transition-delay:.2s"><div class="why-icon">💼</div><div class="why-body"><h4>Career Opportunities</h4><p>Get access to job boards, internships, and career development resources.</p></div></div>
+        <div class="why-card reveal" style="transition-delay:.3s"><div class="why-icon">🌍</div><div class="why-body"><h4>Pan-African Community</h4><p>Join conversations and initiatives that extend beyond Zambia into the continent.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div style="text-align:center" class="reveal">
+        <span class="tag">✦ Roles</span>
+        <h2 class="section-heading">How You Can Contribute</h2>
+      </div>
+      <div class="roles-grid">
+        <div class="role-card reveal"><div class="role-num">01</div><h3>Volunteer</h3><p>Give your time and skills to help run workshops, events, and outreach programmes.</p></div>
+        <div class="role-card reveal" style="transition-delay:.15s"><div class="role-num">02</div><h3>Mentor</h3><p>Share your expertise with young Zambians navigating their tech and career journeys.</p></div>
+        <div class="role-card reveal" style="transition-delay:.3s"><div class="role-num">03</div><h3>Advocate</h3><p>Amplify our mission online, in your community, and at the policy level.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="signup-inner reveal">
+        <span class="tag">✦ Sign Up</span>
+        <h2>Join NAI-ZM Today</h2>
+        <p>Fill in the form below and we'll be in touch within 48 hours.</p>
+        <div class="success-msg" id="join-success">🎉 Welcome to NAI-ZM! We'll be in touch soon.</div>
+        <form id="join-form" onsubmit="handleJoin(event)">
+          <div class="form-row">
+            <div class="form-group"><label>First Name *</label><input type="text" placeholder="e.g. Temwani" required></div>
+            <div class="form-group"><label>Last Name *</label><input type="text" placeholder="e.g. Banda" required></div>
+          </div>
+          <div class="form-group"><label>Email Address *</label><input type="email" placeholder="you@example.com" required></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+260 9X XXX XXXX"></div>
+          <div class="form-group"><label>Province</label>
+            <select><option value="">Select your province</option><option>Lusaka</option><option>Copperbelt</option><option>Central</option><option>Eastern</option><option>Northern</option><option>Southern</option><option>Western</option><option>North-Western</option><option>Luapula</option><option>Muchinga</option></select>
+          </div>
+          <div class="form-group"><label>How Would You Like to Contribute?</label>
+            <select><option value="">Select a role</option><option>Volunteer</option><option>Mentor</option><option>Advocate</option><option>General Member</option><option>Corporate Partner</option></select>
+          </div>
+          <div class="form-group"><label>Why do you want to join NAI-ZM?</label><textarea placeholder="Tell us a little about yourself and your interest in digital advocacy..."></textarea></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;">Submit Application →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div><!-- /join -->
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<div id="page-contact" class="page">
+  <div class="page-hero">
+    <span class="tag">✦ Contact</span>
+    <h1>Get In Touch</h1>
+    <p>We'd love to hear from you — whether you have a question, partnership idea, or just want to say hello.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="reveal-left">
+          <span class="tag">✦ Reach Out</span>
+          <h2>Let's Start a Conversation</h2>
+          <p>Whether you're a potential partner, journalist, donor, or community member — our doors are always open.</p>
+          <div class="contact-details">
+            <div class="cd-item"><div class="cd-icon">📧</div><div class="cd-body"><h4>Email</h4><p>hello@naizm.org</p></div></div>
+            <div class="cd-item"><div class="cd-icon">📱</div><div class="cd-body"><h4>WhatsApp</h4><p>+260 97X XXX XXX</p></div></div>
+            <div class="cd-item"><div class="cd-icon">📍</div><div class="cd-body"><h4>Location</h4><p>Lusaka, Zambia</p></div></div>
+            <div class="cd-item"><div class="cd-icon">🕐</div><div class="cd-body"><h4>Response Time</h4><p>We reply within 24–48 hours</p></div></div>
+          </div>
+        </div>
+        <div class="contact-form-box reveal-right">
+          <h3>Send Us a Message</h3>
+          <div class="success-msg" id="contact-success">✅ Message sent! We'll get back to you soon.</div>
+          <form id="contact-form" onsubmit="handleContact(event)">
+            <div class="form-row">
+              <div class="form-group"><label>Full Name *</label><input type="text" placeholder="Your full name" required></div>
+              <div class="form-group"><label>Email *</label><input type="email" placeholder="you@example.com" required></div>
+            </div>
+            <div class="form-group"><label>Subject</label><input type="text" placeholder="What's this about?"></div>
+            <div class="form-group"><label>Message *</label><textarea placeholder="Tell us how we can help..." required></textarea></div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /contact -->
+
+<!-- ═══════════ DONATE ═══════════ -->
+<div id="page-donate" class="page">
+  <div class="page-hero">
+    <span class="tag">✦ Support Us</span>
+    <h1>Power Our Mission</h1>
+    <p>Your contribution — big or small — directly funds digital education, advocacy, and community programmes across Zambia.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="donate-grid">
+        <div class="donate-card reveal">
+          <h2>💚 Why Your Support Matters</h2>
+          <p>Every kwacha donated helps us run workshops, create content, and advocate for digital rights across Zambia.</p>
+          <p>Donations fund:</p>
+          <ul style="list-style:none;margin-bottom:18px">
+            <li style="padding:10px 14px;background:var(--green-pale);border-radius:8px;margin-bottom:8px;font-weight:600;font-size:.9px;border:1px solid var(--border)">📚 Digital skills workshops</li>
+            <li style="padding:10px 14px;background:var(--green-pale);border-radius:8px;margin-bottom:8px;font-weight:600;font-size:.9px;border:1px solid var(--border)">💻 Equipment for underprivileged learners</li>
+            <li style="padding:10px 14px;background:var(--green-pale);border-radius:8px;margin-bottom:8px;font-weight:600;font-size:.9px;border:1px solid var(--border)">🌐 Internet access grants</li>
+            <li style="padding:10px 14px;background:var(--green-pale);border-radius:8px;margin-bottom:8px;font-weight:600;font-size:.9px;border:1px solid var(--border)">📣 Policy advocacy campaigns</li>
+          </ul>
+          <h2>📱 Mobile Money</h2>
+          <ul class="mm-list">
+            <li><div class="mm-dot mm-yellow"></div>MTN MoMo: <strong>+260 97X XXX XXX</strong></li>
+            <li><div class="mm-dot mm-red"></div>Airtel Money: <strong>+260 97X XXX XXX</strong></li>
+          </ul>
+        </div>
+        <div class="donate-card reveal" style="transition-delay:.15s">
+          <h2>💰 Make a Donation</h2>
+          <p>Choose an amount or enter a custom value below.</p>
+          <div class="quick-amounts">
+            <button class="qa-btn" onclick="setAmt(50)">ZMW 50</button>
+            <button class="qa-btn" onclick="setAmt(100)">ZMW 100</button>
+            <button class="qa-btn" onclick="setAmt(250)">ZMW 250</button>
+            <button class="qa-btn" onclick="setAmt(500)">ZMW 500</button>
+            <button class="qa-btn" onclick="setAmt(1000)">ZMW 1,000</button>
+          </div>
+          <div class="amt-wrap"><span class="amt-prefix">ZMW</span><input type="number" id="donate-amount" placeholder="Enter amount" min="10"></div>
+          <div class="form-group"><label>Your Name *</label><input type="text" id="donor-name" placeholder="Full name"></div>
+          <div class="form-group"><label>Email (optional)</label><input type="email" id="donor-email" placeholder="For receipt"></div>
+          <div class="success-msg" id="donate-success">🎉 Thank you for your generosity! Your contribution makes a real difference.</div>
+          <button onclick="handleDonate()" class="btn btn-amber" style="width:100%;justify-content:center;font-size:1rem;">💚 Complete Donation</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /donate -->
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="logo-wrap" onclick="go('home')" style="margin-bottom:0">
+          <div class="logo-icon"><img src="1.png" alt="NAI-ZM" onerror="this.parentNode.outerHTML='<div class=\'logo-icon-fallback\'>N</div>'"></div>
+          <span class="logo-text">NAI<span style="color:var(--green-light)">-ZM</span></span>
+        </div>
+        <p>Network for Africa's Innovation in Zambia — empowering communities through digital technology, advocacy, and education since 2021.</p>
+        <div class="social-links">
+          <a class="social-link" href="#" aria-label="Facebook">📘</a>
+          <a class="social-link" href="#" aria-label="Twitter">🐦</a>
+          <a class="social-link" href="#" aria-label="Instagram">📷</a>
+          <a class="social-link" href="#" aria-label="LinkedIn">💼</a>
+          <a class="social-link" href="#" aria-label="YouTube">▶️</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a onclick="go('home')">Home</a></li>
+          <li><a onclick="go('about')">About Us</a></li>
+          <li><a onclick="go('events')">Events</a></li>
+          <li><a onclick="go('blogs')">Articles</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a onclick="go('join')">Join NAI-ZM</a></li>
+          <li><a onclick="go('donate')">Donate</a></li>
+          <li><a onclick="go('contact')">Partner With Us</a></li>
+          <li><a onclick="go('join')">Volunteer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a onclick="go('contact')">Contact Us</a></li>
+          <li><a href="mailto:hello@naizm.org">hello@naizm.org</a></li>
+          <li><a>Lusaka, Zambia 🇿🇲</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 NAI-ZM. All rights reserved. Made with 💚 in Zambia.</span>
+      <span>Empowering Zambia's Digital Future</span>
+    </div>
+  </div>
+</footer>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+<script>
+/* ─── CAROUSEL ─── */
+let carouselIdx = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+const dotsContainer = document.getElementById('carouselDots');
+const track = document.getElementById('carouselTrack');
+let carouselTimer;
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+  dot.setAttribute('aria-label', 'Slide ' + (i+1));
+  dot.onclick = () => carouselGoTo(i);
+  dotsContainer.appendChild(dot);
+});
+
+function carouselGoTo(n) {
+  slides[carouselIdx].classList.remove('active');
+  document.querySelectorAll('.carousel-dot')[carouselIdx].classList.remove('active');
+  carouselIdx = (n + slides.length) % slides.length;
+  slides[carouselIdx].classList.add('active');
+  document.querySelectorAll('.carousel-dot')[carouselIdx].classList.add('active');
+  track.style.transform = `translateX(-${carouselIdx * 100}%)`;
+}
+
+function carouselMove(dir) {
+  clearInterval(carouselTimer);
+  carouselGoTo(carouselIdx + dir);
+  startCarouselTimer();
+}
+
+function startCarouselTimer() {
+  carouselTimer = setInterval(() => carouselMove(1), 5000);
+}
+startCarouselTimer();
+
+// Pause on hover
+document.querySelector('.carousel-inner').addEventListener('mouseenter', () => clearInterval(carouselTimer));
+document.querySelector('.carousel-inner').addEventListener('mouseleave', startCarouselTimer);
+
+// Touch/swipe support
+let touchStartX = 0;
+document.querySelector('.carousel-track-wrap').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.querySelector('.carousel-track-wrap').addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 40) carouselMove(diff > 0 ? 1 : -1);
+});
+
+/* ─── DATA ─── */
+const EVENTS = [
+  { day:'15', month:'Jul 2025', type:'Workshop', title:'Digital Skills Bootcamp', loc:'Lusaka', desc:'Intensive three-day coding and design bootcamp for beginners.', more:'Learn HTML, CSS, JavaScript, and basic Python from experienced instructors. Open to all skill levels. Lunch and materials provided. Certificates of completion awarded.' },
+  { day:'22', month:'Aug 2025', type:'Hackathon', title:'ZamTech Innovate 2025', loc:'Copperbelt', desc:'48-hour innovation challenge solving local problems with tech.', more:'Teams of 2–5 compete to build solutions for agriculture, health, and education challenges. Prizes include seed funding, mentorship, and tech equipment worth ZMW 50,000+.' },
+  { day:'10', month:'Sep 2025', type:'Forum', title:'Digital Policy Forum', loc:'Lusaka', desc:'Engaging policymakers and civil society on digital rights.', more:'Panels featuring government officials, tech entrepreneurs, and civil society leaders discussing internet access, data privacy, and the future of Zambia\'s digital economy.' },
+  { day:'18', month:'Oct 2025', type:'Summit', title:'Women in Tech Summit', loc:'Ndola', desc:'Celebrating and empowering women leaders in Zambian tech.', more:'Keynotes, networking sessions, and workshops specifically designed to support and amplify women pursuing careers in science, technology, engineering, and mathematics.' },
+  { day:'05', month:'Nov 2025', type:'Webinar', title:'AI for African Communities', loc:'Online', desc:'Exploring how AI can solve uniquely African challenges.', more:'Join leading AI researchers and practitioners for an interactive webinar on applying machine learning to agriculture, healthcare, and financial inclusion across the continent.' },
+  { day:'12', month:'Dec 2025', type:'Gala', title:'NAI-ZM Annual Gala 2025', loc:'Lusaka', desc:'Celebrating a year of impact and looking ahead to 2026.', more:'Join us for our end-of-year celebration featuring awards for outstanding community members, a showcase of projects built by our members, and a preview of exciting 2026 plans.' },
+];
+
+const BLOGS = [
+  { img:'1.png',  color:'bc-1', tag:'Technology',       title:'The Rise of Tech Startups in Zambia',              summary:'How young Zambians are building innovative solutions and attracting investment.',                    more:'From fintech to agritech, Zambian startups are solving real problems. We profile five startups to watch in 2025 and what their success means for the broader ecosystem.' },
+  { img:'2.png',  color:'bc-2', tag:'Digital Literacy',  title:'Why Digital Skills Are the New Literacy',           summary:'In the 21st century, digital competence is as essential as reading and writing.',                  more:'We explore why digital literacy is fundamental to economic participation, how Zambia\'s education system can better address this gap, and what NAI-ZM is doing to help.' },
+  { img:'8.png',  color:'bc-2', tag:'Community',         title:'Community Engagement in Tech',                      summary:'How communities drive technological innovation and create local solutions.',                      more:'Local coding hubs, hackathons, and tech meetups allow people to share knowledge, solve problems collaboratively, and create impactful solutions for real-world Zambian challenges.' },
+  { img:'3.png',  color:'bc-3', tag:'Inclusion',         title:'Women in Technology',                               summary:'Celebrating women leading in tech fields across Africa and Zambia.',                          more:'From software engineers to entrepreneurs, women are breaking barriers in STEM. Mentorship programmes and scholarships are helping to close the gender gap in technology.' },
+  { img:'5.png',  color:'bc-5', tag:'AI & Future',       title:'AI in Everyday Zambian Life',                       summary:'How artificial intelligence is touching daily routines and decisions in Zambia.',               more:'From smart assistants to healthcare diagnostics, AI is becoming a seamless part of daily life — and Zambia is not being left behind in this revolution.' },
+  { img:'2.png',  color:'bc-6', tag:'Connectivity',      title:'Internet Access as a Right',                        summary:'The case for universal internet connectivity across Zambia.',                                 more:'Over half of Zambia\'s population still lacks reliable internet. We explore policy changes, infrastructure investments, and community solutions needed to close this critical gap.' },
+];
+
+/* ─── RENDER ─── */
+function eventCard(e, i) {
+  return `<div class="event-card reveal">
+    <div class="event-card-top">
+      <span class="event-day">${e.day}</span>
+      <span class="event-month">${e.month}</span>
+      <span class="event-type-badge">${e.type}</span>
+    </div>
+    <div class="event-card-body">
+      <h3>${e.title}</h3>
+      <div class="event-meta">📍 ${e.loc}</div>
+      <p>${e.desc}</p>
+      <p class="event-more" id="em${i}">${e.more}</p>
+      <button class="toggle-btn" onclick="toggleEl('em${i}',this,'Read more ▾','Read less ▴')">Read more ▾</button>
+    </div>
+  </div>`;
+}
+
+function blogCard(b, i) {
+  return `<div class="blog-card reveal">
+    <div class="blog-card-img ${b.color}">
+      <img src="${b.img}" alt="${b.title}" onerror="this.parentNode.className='blog-card-img bc-1';this.remove()">
+    </div>
+    <div class="blog-card-body">
+      <div class="blog-tag">${b.tag}</div>
+      <h3>${b.title}</h3>
+      <p>${b.summary}</p>
+      <p class="blog-extra" id="be${i}">${b.more}</p>
+      <button class="toggle-btn" onclick="toggleEl('be${i}',this,'Read more ▾','Read less ▴')">Read more ▾</button>
+    </div>
+  </div>`;
+}
+
+function populate() {
+  document.getElementById('home-events').innerHTML = EVENTS.slice(0,3).map(eventCard).join('');
+  document.getElementById('home-blogs').innerHTML  = BLOGS.slice(0,3).map(blogCard).join('');
+  document.getElementById('events-full').innerHTML = EVENTS.map(eventCard).join('');
+  document.getElementById('blogs-full').innerHTML  = BLOGS.map(blogCard).join('');
+  initReveal();
+}
+
+/* ─── TOGGLE ─── */
+function toggleEl(id, btn, a, b) {
+  const el = document.getElementById(id);
+  btn.textContent = el.classList.toggle('open') ? b : a;
+}
+
+/* ─── NAV ─── */
+function go(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  const page = document.getElementById('page-' + name);
+  const navEl = document.getElementById('nav-' + name);
+  if (page) page.classList.add('active');
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  document.getElementById('main-nav').classList.remove('open');
+  setTimeout(initReveal, 100);
+}
+
+function toggleNav() {
+  document.getElementById('main-nav').classList.toggle('open');
+}
+
+/* ─── FORMS ─── */
+function handleJoin(e) {
+  e.preventDefault();
+  document.getElementById('join-success').classList.add('show');
+  document.getElementById('join-form').style.opacity = '0.4';
+  document.getElementById('join-form').style.pointerEvents = 'none';
+}
+function handleContact(e) {
+  e.preventDefault();
+  document.getElementById('contact-success').classList.add('show');
+  document.getElementById('contact-form').style.opacity = '0.4';
+  document.getElementById('contact-form').style.pointerEvents = 'none';
+}
+function handleDonate() {
+  const amt = document.getElementById('donate-amount').value;
+  const name = document.getElementById('donor-name').value;
+  if (!amt || +amt < 10) { alert('Please enter a minimum donation of ZMW 10.'); return; }
+  if (!name.trim()) { alert('Please enter your name.'); return; }
+  document.getElementById('donate-success').classList.add('show');
+  document.getElementById('donate-amount').value = '';
+  document.getElementById('donor-name').value = '';
+  document.getElementById('donor-email').value = '';
+  document.querySelectorAll('.qa-btn').forEach(b => b.classList.remove('active'));
+}
+function setAmt(val) {
+  document.getElementById('donate-amount').value = val;
+  document.querySelectorAll('.qa-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.textContent.replace(/\D/g,'')) === val);
+  });
+}
+
+/* ─── SCROLL ─── */
+window.addEventListener('scroll', () => {
+  document.getElementById('back-top').classList.toggle('show', window.scrollY > 400);
+  document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 10);
+  initReveal();
+});
+
+function initReveal() {
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 60) el.classList.add('visible');
+  });
+}
+
+/* ─── INIT ─── */
+populate();
+setTimeout(initReveal, 100);
+</script>
+</body>
+</html>
